@@ -22,5 +22,7 @@ Gem::Specification.new do |s|
   # s.add_development_dependency "rspec"
   # s.add_runtime_dependency "rest-client"
 
-  s.add_runtime_dependency "zookeeper"
+  s.add_development_dependency "rake", "~> 0.9"
+
+  s.add_runtime_dependency "zookeeper", "~> 0.4"
 end
