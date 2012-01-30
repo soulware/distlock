@@ -14,18 +14,21 @@ module Distlock
 
       # does a node exist for the given path?
       def exists?(path)
-        zk.stat(:path => path)[:stat].exists
+        puts "checking if #{path} exists"
+        result = zk.stat(:path => path)[:stat].exists
+        puts result
+        result
       end
 
       # create all levels of the hierarchy as necessary
-      # i.e. for "foo/bar/baz", creates the following nodes - 
+      # i.e. for "/foo/bar/baz", creates the following nodes - 
       #
       # /foo
       # /foo/bar
       # /foo/bar/baz
       #
       def safe_create(path)
-        path_elements = path.split("/")
+        path_elements = path.split("/").reject{ |x| x=="" }
         
         all = []
         while(!path_elements.empty?)
@@ -34,10 +37,17 @@ module Distlock
         end
 
         all.reverse.each do |path_elements|
-          puts path_elements.inspect
           path = "/" + path_elements.join("/")
           zk.create(:path => path) unless exists?(path)
         end
+      end
+
+      # TODO - only create single ephemeral child here
+      def create_sequenced_ephemeral(path, prefix="lock")
+        lock_path = [path, "#{prefix}-#{zk.client_id}-"].join("/")
+        puts lock_path
+        result = zk.create(:path => lock_path, :sequence => true, :ephemeral => true)
+        puts result
       end
     end
   end
