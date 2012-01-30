@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Distlock::VERSION
   s.authors     = ["Simon Horne"]
   s.email       = ["simon@soulware.co.uk"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/soulware/distlock"
   s.summary     = %q{Distributed Locking}
   s.description = %q{Distributed Locking}
 
