@@ -19,10 +19,9 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # specify any dependencies here; for example:
-  # s.add_development_dependency "rspec"
-  # s.add_runtime_dependency "rest-client"
 
   s.add_development_dependency "rake", "~> 0.9"
+  s.add_development_dependency "rspec", "~> 2.0"
 
   s.add_runtime_dependency "zookeeper", "~> 0.4"
 end

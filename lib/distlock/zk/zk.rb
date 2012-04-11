@@ -1,6 +1,6 @@
 require 'zookeeper'
 require 'distlock/zk/common'
-require 'distlock/zk/affinity_pool'
+require 'distlock/zk/exclusive_lock'
 
 module Distlock
   module ZK
