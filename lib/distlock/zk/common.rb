@@ -19,9 +19,8 @@ module Distlock
 
       # does a node exist for the given path?
       def exists?(path)
-        puts "checking if #{path} exists"
         result = zk.stat(:path => path)[:stat].exists
-        puts result
+        logger.debug "checking if #{path} exists - #{result}"
         result
       end
       
@@ -49,9 +48,9 @@ module Distlock
 
       def create_sequenced_ephemeral(path, prefix="lock")
         lock_path = [path, "#{prefix}-#{zk.client_id}-"].join("/")
-        puts lock_path
+        logger.debug lock_path
         result = zk.create(:path => lock_path, :sequence => true, :ephemeral => true)
-        puts result
+        logger.debug result
         result[:path]
       end 
 
