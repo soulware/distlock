@@ -1,3 +1,5 @@
+require 'logger'
+
 module Distlock
   module ZK
     module Common
@@ -5,6 +7,14 @@ module Distlock
         @zk ||= begin
           zk = Zookeeper.new(@options[:host], @options[:timeout])
         end
+      end
+
+      def logger
+        @logger ||= Logger.new(STDOUT)
+      end
+
+      def logger=(logger)
+        @logger = logger
       end
 
       # does a node exist for the given path?
@@ -42,7 +52,19 @@ module Distlock
         puts lock_path
         result = zk.create(:path => lock_path, :sequence => true, :ephemeral => true)
         puts result
-      end            
+        result[:path]
+      end 
+
+      # access @zk directly here, we don't want to lazy instantiate again if closed already
+      def close
+        begin
+          @zk.close if @zk
+        rescue StandardError, ZookeeperExceptions::ZookeeperException => error
+          logger.error("Distlock::ZK::Common#close: caught and squashed error while closing connection - #{error}")
+        end
+
+        @zk = nil
+      end                 
     end
   end
 end
