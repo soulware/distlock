@@ -49,6 +49,7 @@ module Distlock
       end
 
       def lock(path)
+        raise LockError.new("invalid lock path, must start with '/'") unless path.start_with?("/")
         @owner = false
         
         safe_create(path)
@@ -85,8 +86,13 @@ module Distlock
 
           path = lock.split('/')[0...-1].join('/')
         
-          # TODO - pass this in as parameter?
+          # TODO - pass children in as parameter?
           children = zk.get_children(:path => path)[:children].sort{|a,b|a.split('-').last <=> b.split('-').last}
+          
+          puts lock
+          puts path
+          puts children.inspect
+
           lock_last = lock.split('/').last
           lock_idx = children.index(lock_last)
 
