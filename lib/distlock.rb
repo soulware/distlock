@@ -2,6 +2,7 @@ require 'logger'
 require 'distlock/version'
 require 'distlock/lock_error'
 require 'distlock/zk/zk'
+require 'distlock/redis/redis'
 
 module Distlock
   def Distlock.logger
