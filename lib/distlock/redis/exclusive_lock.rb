@@ -12,6 +12,9 @@ module Distlock
       DEFAULT_RETRY_FOR = 60 # 1 min
       DEFAULT_RETRY_IN = 1 # 1 sec
 
+      def initialize(options={})
+      end
+
       def my_lock
         @my_lock
       end
