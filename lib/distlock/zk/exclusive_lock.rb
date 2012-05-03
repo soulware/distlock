@@ -88,10 +88,6 @@ module Distlock
         
           # TODO - pass children in as parameter?
           children = zk.get_children(:path => path)[:children].sort{|a,b|a.split('-').last <=> b.split('-').last}
-          
-          puts lock
-          puts path
-          puts children.inspect
 
           lock_last = lock.split('/').last
           lock_idx = children.index(lock_last)

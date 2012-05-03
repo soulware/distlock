@@ -23,5 +23,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rake", "~> 0.9"
   s.add_development_dependency "rspec", "~> 2.0"
 
-  s.add_runtime_dependency "zookeeper", "~> 0.4"
+  # todo remove these
+  # s.add_development_dependency "zookeeper", "~> 0.4"
+  # s.add_development_dependency "redis"
+  # s.add_development_dependency "system_timer"
 end
